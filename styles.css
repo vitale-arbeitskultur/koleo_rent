@@ -184,3 +184,23 @@ table td {
     border-bottom-color: #64b5f6; /* Accent color on focus */
     box-shadow: 0 1px 0 0 #64b5f6;
 }
+
+/* Icon button styling */
+.icon-button {
+    cursor: pointer;
+    margin: 0 5px; /* Add some space between icons */
+    font-size: 1.2em; /* Adjust size as needed */
+    color: #64b5f6; /* Default icon color */
+}
+
+.icon-button:hover {
+    color: #42a5f5; /* Hover color */
+}
+
+.icon-button.delete-btn {
+    color: #e57373; /* Red color for delete icon */
+}
+
+.icon-button.delete-btn:hover {
+    color: #ef5350; /* Darker red on hover */
+}

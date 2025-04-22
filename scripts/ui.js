@@ -40,16 +40,17 @@ export function renderTenantList() {
 
             const actionCell = row.insertCell();
 
-            const editBtn = document.createElement('button');
-            editBtn.textContent = 'Bearbeiten';
-            editBtn.addEventListener('click', () => editTenant(tenant.id));
-            actionCell.appendChild(editBtn);
+            const editIcon = document.createElement('i');
+            editIcon.classList.add('fas', 'fa-edit', 'icon-button'); // Using Font Awesome classes
+            editIcon.title = 'Bearbeiten'; // Add tooltip
+            editIcon.addEventListener('click', () => editTenant(tenant.id));
+            actionCell.appendChild(editIcon);
 
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Löschen';
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.addEventListener('click', () => deleteTenant(tenant.id));
-            actionCell.appendChild(deleteBtn);
+            const deleteIcon = document.createElement('i');
+            deleteIcon.classList.add('fas', 'fa-trash-alt', 'icon-button', 'delete-btn'); // Using Font Awesome classes
+            deleteIcon.title = 'Löschen'; // Add tooltip
+            deleteIcon.addEventListener('click', () => deleteTenant(tenant.id));
+            actionCell.appendChild(deleteIcon);
         });
     }
 }
@@ -76,16 +77,17 @@ export function renderRoomList() {
 
             const actionCell = row.insertCell();
 
-            const editBtn = document.createElement('button');
-            editBtn.textContent = 'Bearbeiten';
-            editBtn.addEventListener('click', () => editRoom(room.id));
-            actionCell.appendChild(editBtn);
+            const editIcon = document.createElement('i');
+            editIcon.classList.add('fas', 'fa-edit', 'icon-button'); // Using Font Awesome classes
+            editIcon.title = 'Bearbeiten'; // Add tooltip
+            editIcon.addEventListener('click', () => editRoom(room.id));
+            actionCell.appendChild(editIcon);
 
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Löschen';
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.addEventListener('click', () => deleteRoom(room.id));
-            actionCell.appendChild(deleteBtn);
+            const deleteIcon = document.createElement('i');
+            deleteIcon.classList.add('fas', 'fa-trash-alt', 'icon-button', 'delete-btn'); // Using Font Awesome classes
+            deleteIcon.title = 'Löschen'; // Add tooltip
+            deleteIcon.addEventListener('click', () => deleteRoom(room.id));
+            actionCell.appendChild(deleteIcon);
         });
     }
     totalAreaDisplaySpan.textContent = currentTotalArea.toFixed(2);
