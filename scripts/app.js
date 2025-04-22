@@ -1,14 +1,18 @@
-import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importDataBtn } from './ui.js';
+import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importDataBtn, initializeMaterializeSelects } from './ui.js';
 import { addTenant } from './tenants.js';
 import { addRoom, saveRoom, cancelEdit } from './rooms.js';
 import { calculateRent } from './calculation.js';
 import { exportData, importData } from './io.js';
 
 // --- Event Listeners ---
+/**
+ * Initializes the application when the DOM is fully loaded.
+ * Sets up initial rendering, attaches event listeners, and initializes Materialize components.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    renderRoomList(); // Initial leere Liste anzeigen
-    renderTenantList(); // Initial leere Mieterliste anzeigen
-    populateTenantSelect(); // Initial leeres Dropdown füllen
+    renderRoomList(); // Initial empty list display
+    renderTenantList(); // Initial empty tenant list display
+    populateTenantSelect(); // Initial empty dropdown population
 
     // Attach event listeners to buttons and inputs
     document.getElementById('addRoomBtn').addEventListener('click', addRoom);
@@ -31,6 +35,5 @@ document.addEventListener('DOMContentLoaded', () => {
     var dropdownElems = document.querySelectorAll('.dropdown-trigger');
     M.Dropdown.init(dropdownElems, { coverTrigger: false });
 
-    var selectElems = document.querySelectorAll('select');
-    M.FormSelect.init(selectElems);
+    initializeMaterializeSelects();
 });

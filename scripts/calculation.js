@@ -1,6 +1,10 @@
 import { data } from './data.js';
 import { renderResults, totalColdRentInput, utilitiesInput, resultsDiv, noCalculationMessage } from './ui.js';
 
+/**
+ * Calculates the rent distribution based on room areas, tenant assignments, total cold rent, and utilities.
+ * Updates the data object and renders the results in the UI.
+ */
 export function calculateRent() {
     const totalColdRent = parseFloat(totalColdRentInput.value);
     data.totalColdRent = isNaN(totalColdRent) || totalColdRent <= 0 ? 0 : totalColdRent; // Store it in our data object, default to 0 if invalid
@@ -100,6 +104,12 @@ export function calculateRent() {
     renderResults(calculatedData);
 }
 
+/**
+ * Calculates the distribution of private rented area among tenants.
+ * @param {Array<object>} tenants - The array of tenant objects.
+ * @param {Array<object>} rooms - The array of room objects.
+ * @returns {object} An object where keys are tenant IDs and values are objects containing name, area, and percentage of total rented area.
+ */
 function calculateTenantAreaDistribution(tenants, rooms) {
     const distribution = {};
     let totalRentedArea = 0;

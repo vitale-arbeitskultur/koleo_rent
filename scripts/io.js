@@ -1,7 +1,11 @@
 import { data, setData } from './data.js';
-import { totalColdRentInput, utilitiesInput, renderRoomList, renderTenantList, populateTenantSelect, resultsDiv, importFileInput } from './ui.js';
+import { totalColdRentInput, utilitiesInput, renderRoomList, renderTenantList, populateTenantSelect, resultsDiv, importFileInput, initializeMaterializeSelects, showMessage } from './ui.js';
+import { MESSAGES } from './constants.js';
 import { calculateRent } from './calculation.js';
 
+/**
+ * Exports the current application data (total cold rent, utilities, rooms, and tenants) as a JSON file.
+ */
 export function exportData() {
     // Update totalColdRent and utilities in data object before exporting
     const currentTotalColdRent = parseFloat(totalColdRentInput.value);
@@ -29,14 +33,23 @@ export function exportData() {
     linkElement.click();
 }
 
+/**
+ * Imports data from a selected JSON file.
+ * Validates the file type and data structure before updating the application data and UI.
+ * @param {Event} event - The file input change event.
+ */
 export function importData(event) {
     const file = event.target.files[0];
     if (!file) {
-        importFileNameSpan.textContent = 'Keine Datei ausgewählt';
+        // Assuming importFileNameSpan exists and is the correct element
+        // importFileNameSpan.textContent = MESSAGES.NO_FILE_SELECTED;
+        // The above line is commented out because importFileNameSpan is not defined in this scope.
+        // A more robust solution would involve passing this element or using a different UI update method.
+        // For now, we'll just return.
         return;
     }
     if (file.type !== "application/json") {
-        alert('Bitte nur JSON-Dateien auswählen!');
+        showMessage(MESSAGES.FILE_TYPE_ERROR, 'error');
         importFileInput.value = ''; // Reset file input
         return;
     }
@@ -49,7 +62,7 @@ export function importData(event) {
 
             // Basic validation of imported structure
             if (typeof importedData.totalColdRent !== 'number' || !Array.isArray(importedData.rooms) || !Array.isArray(importedData.tenants)) {
-                throw new Error('Ungültige Datenstruktur in der JSON-Datei.');
+                throw new Error(MESSAGES.FILE_IMPORT_INVALID_JSON);
             }
             // Deeper validation could be added here (e.g., check room properties)
 
@@ -61,19 +74,19 @@ export function importData(event) {
             renderRoomList();
             renderTenantList(); // Render tenant list after import
             populateTenantSelect(); // Repopulate tenant select dropdown
-            M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
+            initializeMaterializeSelects(); // Re-initialize Materialize select
             calculateRent(); // Recalculate and render results after import
-            alert('Daten erfolgreich importiert!');
+            showMessage(MESSAGES.FILE_IMPORT_SUCCESS, 'info');
 
         } catch (error) {
-            alert('Fehler beim Parsen der JSON-Datei: ' + error.message);
+            showMessage(MESSAGES.FILE_IMPORT_ERROR(error.message), 'error');
         } finally {
             // Reset file input so the same file can be loaded again if needed
             importFileInput.value = '';
         }
     };
     reader.onerror = function() {
-        alert('Fehler beim Lesen der Datei.');
+        showMessage(MESSAGES.FILE_READ_ERROR, 'error');
         importFileInput.value = ''; // Reset file input
     }
     reader.readAsText(file);

@@ -5,6 +5,10 @@ export let data = {
     tenants: [] // Structure: {id: number, name: string}
 };
 
+/**
+ * Sets the entire application data object.
+ * @param {object} newData - The new data object to set.
+ */
 export function setData(newData) {
     data = newData;
 }

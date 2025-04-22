@@ -1,19 +1,28 @@
 import { data } from './data.js';
-import { renderTenantList, populateTenantSelect, resultsDiv, addTenantRow } from './ui.js';
+import { renderTenantList, populateTenantSelect, resultsDiv, addTenantRow, initializeMaterializeSelects, showMessage } from './ui.js';
+import { MESSAGES } from './constants.js';
 import { calculateRent } from './calculation.js';
 
+/**
+ * Initiates the process of adding a new tenant by adding a new input row to the tenant table.
+ */
 export function addTenant() {
     addTenantRow();
 }
 
+/**
+ * Saves a new tenant with the provided name.
+ * Performs validation to ensure the name is not empty and the tenant does not already exist.
+ * @param {string} name - The name of the tenant to save.
+ */
 export function saveTenant(name) {
     if (!name) {
-        alert('Bitte einen Mietername eingeben.');
+        showMessage(MESSAGES.TENANT_NAME_REQUIRED, 'error');
         return;
     }
     // Check if tenant already exists
     if (data.tenants.some(tenant => tenant.name.toLowerCase() === name.toLowerCase())) {
-        alert(`Mieter "${name}" existiert bereits.`); // Use template literal for consistency
+        showMessage(MESSAGES.TENANT_EXISTS(name), 'error'); // Use template literal for consistency
         return;
     }
 
@@ -25,25 +34,35 @@ export function saveTenant(name) {
     data.tenants.push(newTenant);
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown in room form
-    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
+    initializeMaterializeSelects(); // Re-initialize Materialize select
     calculateRent(); // Recalculate after adding a tenant
 }
 
+/**
+ * Deletes a tenant with the specified ID.
+ * Prevents deletion if the tenant is assigned to any rooms.
+ * @param {number} id - The ID of the tenant to delete.
+ */
 export function deleteTenant(id) {
     // Check if any rooms are assigned to this tenant
     const assignedRooms = data.rooms.filter(room => room.tenantId === id);
     if (assignedRooms.length > 0) {
         const roomNames = assignedRooms.map(room => room.name).join(', ');
-        alert(`Mieter kann nicht gelöscht werden, da noch Räume zugewiesen sind: ${roomNames}`); // Use template literal for consistency
+        showMessage(MESSAGES.TENANT_ASSIGNED_ROOMS(roomNames), 'error'); // Use template literal for consistency
         return;
     }
     data.tenants = data.tenants.filter(tenant => tenant.id !== id);
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
-    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
+    initializeMaterializeSelects(); // Re-initialize Materialize select
     calculateRent(); // Recalculate after deleting a tenant
 }
 
+/**
+ * Initiates the editing process for a tenant with the specified ID.
+ * Prompts the user for a new name and updates the tenant data after validation.
+ * @param {number} id - The ID of the tenant to edit.
+ */
 export function editTenant(id) {
     const tenantToEdit = data.tenants.find(tenant => tenant.id === id);
     if (!tenantToEdit) return;
@@ -51,7 +70,7 @@ export function editTenant(id) {
     const newName = prompt(`Mieter "${tenantToEdit.name}" bearbeiten. Neuer Name:`, tenantToEdit.name);
 
     if (newName === null || newName.trim() === '') {
-        alert('Mietername darf nicht leer sein.');
+        showMessage(MESSAGES.TENANT_NAME_EMPTY, 'error');
         return;
     }
 
@@ -59,14 +78,14 @@ export function editTenant(id) {
 
     // Check for duplicate name, excluding the tenant being edited
     if (data.tenants.some(tenant => tenant.id !== id && tenant.name.toLowerCase() === trimmedName.toLowerCase())) {
-        alert(`Mieter "${trimmedName}" existiert bereits.`); // Use template literal for consistency
+        showMessage(MESSAGES.TENANT_EXISTS(trimmedName), 'error'); // Use template literal for consistency
         return;
     }
 
     tenantToEdit.name = trimmedName;
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
-    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
+    initializeMaterializeSelects(); // Re-initialize Materialize select
     resultsDiv.style.display = 'none'; // Hide old results
     calculateRent(); // Recalculate after editing a tenant
 }
