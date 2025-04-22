@@ -61,6 +61,7 @@ export function importData(event) {
             renderRoomList();
             renderTenantList(); // Render tenant list after import
             populateTenantSelect(); // Repopulate tenant select dropdown
+            M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
             calculateRent(); // Recalculate and render results after import
             alert('Daten erfolgreich importiert!');
 

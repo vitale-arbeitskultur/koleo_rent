@@ -29,6 +29,7 @@ export function addRoom() {
     data.rooms.push(newRoom);
     renderRoomList();
     clearRoomForm();
+    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
     calculateRent(); // Recalculate after adding a room
 }
 
@@ -82,6 +83,7 @@ export function saveRoom() {
 
     renderRoomList();
     clearRoomForm();
+    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
     cancelEdit(); // Reset buttons and editing state
     calculateRent(); // Recalculate after saving a room
 }
