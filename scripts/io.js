@@ -1,5 +1,5 @@
 import { data, setData } from './data.js';
-import { totalColdRentInput, utilitiesInput, renderRoomList, renderTenantList, populateTenantSelect, resultsDiv, importFileInput, importFileNameSpan } from './ui.js';
+import { totalColdRentInput, utilitiesInput, renderRoomList, renderTenantList, populateTenantSelect, resultsDiv, importFileInput } from './ui.js';
 import { calculateRent } from './calculation.js';
 
 export function exportData() {
@@ -36,13 +36,11 @@ export function importData(event) {
         return;
     }
     if (file.type !== "application/json") {
-        alert("Bitte nur JSON-Dateien auswählen!");
+        alert('Bitte nur JSON-Dateien auswählen!');
         importFileInput.value = ''; // Reset file input
-        importFileNameSpan.textContent = 'Keine Datei ausgewählt';
         return;
     }
 
-    importFileNameSpan.textContent = file.name; // Show selected file name
 
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -51,7 +49,7 @@ export function importData(event) {
 
             // Basic validation of imported structure
             if (typeof importedData.totalColdRent !== 'number' || !Array.isArray(importedData.rooms) || !Array.isArray(importedData.tenants)) {
-                throw new Error("Ungültige Datenstruktur in der JSON-Datei.");
+                throw new Error('Ungültige Datenstruktur in der JSON-Datei.');
             }
             // Deeper validation could be added here (e.g., check room properties)
 
@@ -64,19 +62,17 @@ export function importData(event) {
             renderTenantList(); // Render tenant list after import
             populateTenantSelect(); // Repopulate tenant select dropdown
             resultsDiv.style.display = 'none'; // Hide old results
-            alert("Daten erfolgreich importiert!");
+            alert('Daten erfolgreich importiert!');
 
         } catch (error) {
-            alert("Fehler beim Parsen der JSON-Datei: " + error.message);
-            importFileNameSpan.textContent = 'Fehler beim Import';
+            alert('Fehler beim Parsen der JSON-Datei: ' + error.message);
         } finally {
             // Reset file input so the same file can be loaded again if needed
             importFileInput.value = '';
         }
     };
     reader.onerror = function() {
-        alert("Fehler beim Lesen der Datei.");
-        importFileNameSpan.textContent = 'Fehler beim Lesen';
+        alert('Fehler beim Lesen der Datei.');
         importFileInput.value = ''; // Reset file input
     }
     reader.readAsText(file);

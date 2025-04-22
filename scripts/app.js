@@ -29,12 +29,3 @@ document.addEventListener('DOMContentLoaded', () => {
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, { coverTrigger: false });
 });
-
-// Expose functions to the global scope for inline event handlers in index.html
-window.addRoom = addRoom;
-window.saveRoom = saveRoom;
-window.cancelEdit = cancelEdit;
-window.addTenant = addTenant;
-window.calculateRent = calculateRent;
-window.exportData = exportData;
-window.importData = importData;

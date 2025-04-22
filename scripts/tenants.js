@@ -5,12 +5,12 @@ import { calculateRent } from './calculation.js';
 export function addTenant() {
     const name = tenantNameInput.value.trim();
     if (!name) {
-        alert("Bitte einen Mietername eingeben.");
+        alert('Bitte einen Mietername eingeben.');
         return;
     }
     // Check if tenant already exists
     if (data.tenants.some(tenant => tenant.name.toLowerCase() === name.toLowerCase())) {
-        alert(`Mieter "${name}" existiert bereits.`);
+        alert(`Mieter "${name}" existiert bereits.`); // Use template literal for consistency
         return;
     }
 
@@ -31,7 +31,7 @@ export function deleteTenant(id) {
     const assignedRooms = data.rooms.filter(room => room.tenantId === id);
     if (assignedRooms.length > 0) {
         const roomNames = assignedRooms.map(room => room.name).join(', ');
-        alert(`Mieter kann nicht gelöscht werden, da noch Räume zugewiesen sind: ${roomNames}`);
+        alert(`Mieter kann nicht gelöscht werden, da noch Räume zugewiesen sind: ${roomNames}`); // Use template literal for consistency
         return;
     }
     data.tenants = data.tenants.filter(tenant => tenant.id !== id);
@@ -47,7 +47,7 @@ export function editTenant(id) {
     const newName = prompt(`Mieter "${tenantToEdit.name}" bearbeiten. Neuer Name:`, tenantToEdit.name);
 
     if (newName === null || newName.trim() === '') {
-        alert("Mietername darf nicht leer sein.");
+        alert('Mietername darf nicht leer sein.');
         return;
     }
 
@@ -55,7 +55,7 @@ export function editTenant(id) {
 
     // Check for duplicate name, excluding the tenant being edited
     if (data.tenants.some(tenant => tenant.id !== id && tenant.name.toLowerCase() === trimmedName.toLowerCase())) {
-        alert(`Mieter "${trimmedName}" existiert bereits.`);
+        alert(`Mieter "${trimmedName}" existiert bereits.`); // Use template literal for consistency
         return;
     }
 

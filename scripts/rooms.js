@@ -1,5 +1,5 @@
 import { data } from './data.js';
-import { renderRoomList, clearRoomForm, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, document } from './ui.js';
+import { renderRoomList, clearRoomForm, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox } from './ui.js';
 import { calculateRent } from './calculation.js';
 
 let editingRoomId = null; // To keep track of the room being edited
@@ -11,7 +11,7 @@ export function addRoom() {
     const isCommon = isCommonAreaCheckbox.checked;
 
     if (!name || isNaN(area) || area <= 0) {
-        alert("Bitte gültigen Raumnamen und eine positive Fläche eingeben.");
+        alert('Bitte gültigen Raumnamen und eine positive Fläche eingeben.');
         return;
     }
 
@@ -19,7 +19,7 @@ export function addRoom() {
     const assignedTenantId = isCommon ? null : (tenantId === -1 ? null : tenantId); // -1 for "Kein Mieter" option
 
     const newRoom = {
-        id: Date.now(), // Einfache eindeutige ID
+        id: Date.now(), // Simple unique ID
         name: name,
         area: area,
         tenantId: assignedTenantId,
@@ -68,7 +68,7 @@ export function saveRoom() {
     const isCommon = isCommonAreaCheckbox.checked;
 
     if (!name || isNaN(area) || area <= 0) {
-        alert("Bitte gültigen Raumnamen und eine positive Fläche eingeben.");
+        alert('Bitte gültigen Raumnamen und eine positive Fläche eingeben.');
         return;
     }
 

@@ -1,8 +1,8 @@
 import { data } from './data.js';
-import { deleteTenant, editTenant } from './tenants.js'; // Assuming tenants.js will have these
-import { deleteRoom, editRoom } from './rooms.js'; // Assuming rooms.js will have these
-import { calculateRent } from './calculation.js'; // Assuming calculation.js will have this
-import { importData } from './io.js'; // Assuming io.js will have this
+import { deleteTenant, editTenant } from './tenants.js';
+import { deleteRoom, editRoom } from './rooms.js';
+import { calculateRent } from './calculation.js';
+import { importData } from './io.js';
 
 // --- DOM Elemente ---
 export const totalColdRentInput = document.getElementById('totalColdRent');
@@ -21,7 +21,6 @@ export const calculationSummaryDiv = document.getElementById('calculationSummary
 export const checksumRentSpan = document.getElementById('checksumRent');
 export const totalAreaDisplaySpan = document.getElementById('totalAreaDisplay');
 export const importFileInput = document.getElementById('importFile');
-export const importFileNameSpan = document.getElementById('importFileName');
 
 // --- Rendering Functions ---
 export function renderTenantList() {
@@ -42,13 +41,13 @@ export function renderTenantList() {
 
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Bearbeiten';
-            editBtn.onclick = () => editTenant(tenant.id);
+            editBtn.addEventListener('click', () => editTenant(tenant.id));
             actionCell.appendChild(editBtn);
 
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Löschen';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = () => deleteTenant(tenant.id);
+            deleteBtn.addEventListener('click', () => deleteTenant(tenant.id));
             actionCell.appendChild(deleteBtn);
         });
     }
@@ -78,19 +77,18 @@ export function renderRoomList() {
 
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Bearbeiten';
-            editBtn.onclick = () => editRoom(room.id);
+            editBtn.addEventListener('click', () => editRoom(room.id));
             actionCell.appendChild(editBtn);
 
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Löschen';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = () => deleteRoom(room.id);
+            deleteBtn.addEventListener('click', () => deleteRoom(room.id));
             actionCell.appendChild(deleteBtn);
         });
     }
     totalAreaDisplaySpan.textContent = currentTotalArea.toFixed(2);
-    // Nach jeder Änderung der Raumliste die Ergebnisse ausblenden, da sie veraltet sind
-    resultsDiv.style.display = 'none';
+    resultsDiv.style.display = 'none'; // Hide results after room list changes
 }
 
 export function populateTenantSelect() {
@@ -111,7 +109,7 @@ export function clearRoomForm() {
 }
 
 export function renderResults(calculatedData) {
-    resultsTableBody.innerHTML = ''; // Ergebnisse leeren
+    resultsTableBody.innerHTML = ''; // Clear results
 
     if (calculatedData.tenantRentData) {
         for (const tenantId in calculatedData.tenantRentData) {
@@ -154,5 +152,5 @@ export function renderResults(calculatedData) {
     `;
 
     checksumRentSpan.textContent = calculatedData.calculatedTotalRentSum.toFixed(2);
-    resultsDiv.style.display = 'block'; // Ergebnisse anzeigen
+    resultsDiv.style.display = 'block'; // Show results
 }

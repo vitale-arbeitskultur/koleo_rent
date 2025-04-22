@@ -4,7 +4,7 @@ import { renderResults, totalColdRentInput, utilitiesInput } from './ui.js';
 export function calculateRent() {
     const totalColdRent = parseFloat(totalColdRentInput.value);
     if (isNaN(totalColdRent) || totalColdRent <= 0) {
-        alert("Bitte eine gültige positive Gesamtkaltmiete eingeben.");
+        alert('Bitte eine gültige positive Gesamtkaltmiete eingeben.');
         return;
     }
     data.totalColdRent = totalColdRent; // Store it in our data object
@@ -16,7 +16,7 @@ export function calculateRent() {
     let totalArea = 0;
     let totalCommonArea = 0;
     let totalPrivateArea = 0;
-    const tenantRentData = {}; // Struktur: { tenantId: { privateArea: number, rooms: [], commonAreaShare: number, commonCostShare: number, coldRent: number, utilitiesShare: number, totalRent: number } }
+    const tenantRentData = {}; // Structure: { tenantId: { privateArea: number, rooms: [], commonAreaShare: number, commonCostShare: number, coldRent: number, utilitiesShare: number, totalRent: number } }
 
     data.rooms.forEach(room => {
         totalArea += room.area;
@@ -33,17 +33,17 @@ export function calculateRent() {
     });
 
     if (totalArea === 0) {
-        alert("Keine Flächen vorhanden, Berechnung nicht möglich.");
+        alert('Keine Flächen vorhanden, Berechnung nicht möglich.');
         return;
     }
 
     const rentPerTotalSqm = totalColdRent / totalArea;
     const totalCommonCost = totalCommonArea * rentPerTotalSqm;
-    let calculatedTotalRentSum = 0; // Zur Prüfung
+    let calculatedTotalRentSum = 0; // For verification
 
     // Handle scenario with only common areas or no private areas
     if (totalPrivateArea <= 0 && Object.keys(tenantRentData).length > 0) {
-        alert("Warnung: Es gibt Mieter, aber keine privaten Flächen, auf die Gemeinschaftskosten verteilt werden können.");
+        alert('Warnung: Es gibt Mieter, aber keine privaten Flächen, auf die Gemeinschaftskosten verteilt werden können.');
         // Maybe distribute common costs equally? Or show an error? For now, skip distribution.
         // totalPrivateArea = 1; // Avoid division by zero, but the result won't be meaningful
     }
