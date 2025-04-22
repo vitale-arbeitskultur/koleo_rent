@@ -134,6 +134,11 @@ h6 {
 /* Button styling */
 .btn, .btn-large, .btn-small {
     background-color: #64b5f6; /* Accent color for buttons */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align items */
+    height: 36px; /* Set a fixed height to match Materialize default button height */
+    line-height: 36px; /* Set line height to match height for vertical centering */
+    padding: 0 16px; /* Add padding to match Materialize default button padding */
 }
 
 .btn:hover, .btn-large:hover, .btn-small:hover {

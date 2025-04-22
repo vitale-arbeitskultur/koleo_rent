@@ -19,7 +19,7 @@ export const calculationSummaryDiv = document.getElementById('calculationSummary
 export const checksumRentSpan = document.getElementById('checksumRent');
 export const totalAreaDisplaySpan = document.getElementById('totalAreaDisplay');
 export const importFileInput = document.getElementById('importFile');
-export const importButtonContainer = document.getElementById('importButtonContainer');
+export const importDataBtn = document.getElementById('importDataBtn');
 export const noCalculationMessage = document.getElementById('noCalculationMessage');
 // --- Rendering Functions ---
 export function renderTenantList() {
@@ -153,6 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 tenantSelectContainer.style.display = ''; // Or 'block', depending on default
             }
         });
+    }
+
+    // Add event listener for the new import button
+    if (importDataBtn && importFileInput) {
+        importDataBtn.addEventListener('click', function() {
+            importFileInput.click(); // Trigger the hidden file input
+        });
+        importFileInput.addEventListener('change', importData); // Handle file selection
     }
 });
 

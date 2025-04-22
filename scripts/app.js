@@ -1,4 +1,4 @@
-import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importButtonContainer } from './ui.js';
+import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importDataBtn } from './ui.js';
 import { addTenant } from './tenants.js';
 import { addRoom, saveRoom, cancelEdit } from './rooms.js';
 import { calculateRent } from './calculation.js';
@@ -15,10 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveRoomBtn').addEventListener('click', saveRoom);
     document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
     document.getElementById('addTenantBtn').addEventListener('click', addTenant);
-    document.getElementById('calculateRentBtn').addEventListener('click', () => {
-        console.log('Calculate Rent button clicked'); // Add console log
-        calculateRent();
-    });
     document.getElementById('exportDataBtn').addEventListener('click', exportData);
 
     // Event listeners for input changes to trigger recalculation
@@ -27,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Note: Changes to rooms and tenants will trigger recalculation within their respective functions
 
     // Event listener for file import
+    // Event listener for file import
+    // The event listener for the import button is now in ui.js
     importFileInput.addEventListener('change', importData);
-    importButtonContainer.addEventListener('click', () => importFileInput.click());
 
     // Initialize Materialize components
     var dropdownElems = document.querySelectorAll('.dropdown-trigger');

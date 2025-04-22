@@ -19,18 +19,10 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo"><i class="material-icons">business</i>CoWorking Mietenberechnung</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#!" id="calculateRentBtn"><i class="material-icons left">calculate</i>Miete berechnen</a></li>
-                <li><a href="#!" id="exportDataBtn" class="tooltipped" data-position="bottom" data-tooltip="Daten exportieren"><i class="material-icons left">file_download</i></a></li>
+                <li><a href="#!" id="exportDataBtn" class="btn waves-effect waves-light"><i class="material-icons left">file_download</i>Daten exportieren</a></li>
                 <li>
-                    <div class="file-field input-field tooltipped" data-position="bottom" data-tooltip="Daten importieren" style="margin-top: 0; margin-bottom: 0; height: auto;" id="importButtonContainer">
-                        <div style="height: 64px; display: flex; align-items: center;">
-                            <i class="material-icons left">file_upload</i>
-                            <input type="file" id="importFile" accept=".json">
-                        </div>
-                        <div class="file-path-wrapper" style="display: none;">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
+                    <button class="btn waves-effect waves-light" id="importDataBtn"><i class="material-icons left">file_upload</i>Daten importieren</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
                 </li>
             </ul>
         </div>
