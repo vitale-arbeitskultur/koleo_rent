@@ -6,9 +6,25 @@ body {
     color: #e0e0e0; /* Light text */
 }
 
+.nav-wrapper {
+    background-color: #00796b; /* Rich green-blue */
+    padding: 0 20px; /* Add padding */
+    max-width: 1200px; /* Match container width */
+    margin: 0 auto; /* Center the navbar */
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+}
+
+.brand-logo i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
 .container {
     max-width: 1200px; /* Increase max-width to accommodate two columns */
-    margin: auto;
+    margin: 20px auto; /* Add top margin and center */
     padding: 20px;
     background-color: #1e1e1e; /* Slightly lighter dark background for container */
     border-radius: 8px; /* Rounded corners for container */
