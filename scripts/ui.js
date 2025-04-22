@@ -86,16 +86,36 @@ export function renderRoomList() {
     roomTableBody.innerHTML = ''; // Liste leeren
     let currentTotalArea = 0;
 
-    if (data.rooms.length === 0) {
+    // Sort rooms by tenantId, with null tenantId (common areas/unassigned) at the end
+    const sortedRooms = [...data.rooms].sort((a, b) => {
+        if (a.tenantId === null && b.tenantId === null) return 0;
+        if (a.tenantId === null) return 1;
+        if (b.tenantId === null) return -1;
+        return a.tenantId - b.tenantId;
+    });
+
+    let currentColorClass = 'tenant-group-1';
+    let previousTenantId = null;
+
+    if (sortedRooms.length === 0) {
         const row = roomTableBody.insertRow();
         const cell = row.insertCell();
         cell.colSpan = 5;
         cell.textContent = 'Noch keine Räume hinzugefügt.';
         cell.style.textAlign = 'center';
     } else {
-        data.rooms.forEach(room => {
+        sortedRooms.forEach(room => {
             currentTotalArea += room.area;
             const row = roomTableBody.insertRow();
+
+            // Switch color class if tenant changes
+            if (room.tenantId !== previousTenantId) {
+                currentColorClass = currentColorClass === 'tenant-group-1' ? 'tenant-group-2' : 'tenant-group-1';
+                previousTenantId = room.tenantId;
+            }
+            row.classList.add(currentColorClass);
+
+
             row.insertCell().textContent = room.name;
             row.insertCell().textContent = room.area.toFixed(2);
             const assignedTenant = data.tenants.find(t => t.id === room.tenantId);

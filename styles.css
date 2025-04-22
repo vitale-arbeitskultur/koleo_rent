@@ -251,3 +251,12 @@ table td {
 .icon-button.delete-btn:hover {
     color: #ef5350; /* Darker red on hover */
 }
+
+/* Styles for tenant grouping in room list */
+.tenant-group-1 {
+    background-color: #333333; /* Subtle dark grey */
+}
+
+.tenant-group-2 {
+    background-color: #3d3d3d; /* Slightly different subtle dark grey */
+}
