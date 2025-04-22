@@ -32,7 +32,41 @@
         </div>
     </nav>
 
+    
+
     <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="section-box">
+                    <h2>Berechnungsergebnisse</h2>
+                    <p id="noCalculationMessage" style="text-align: center; margin-top: 20px;">Bitte geben Sie die Gesamtkaltmiete und Nebenkosten ein und fügen Sie Räume und Mieter hinzu, um die Berechnung zu sehen.</p>
+                    <div id="results" style="display: none;">
+                        <div id="calculationSummary"></div>
+                        <table class="striped highlight">
+                            <thead>
+                                <tr>
+                                    <th>Mieter</th>
+                                    <th>Private Fläche (m²)</th>
+                                    <th>Anteil private Fläche (%)</th>
+                                    <th>Anteil Gemeinschaftsfläche (m²)</th>
+                                    <th>Anteil Gemeinschaftskosten (€)</th>
+                                    <th>Kaltmiete (€)</th>
+                                    <th>Nebenkosten (€)</th>
+                                    <th>Gesamtmiete (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Ergebnisse werden hier eingefügt -->
+                            </tbody>
+                        </table>
+                        <p><strong>Prüfsumme (Gesamtmiete aller Mieter + Kosten ungenutzter Flächen):</strong> <span id="checksumRent">0.00</span> €</p>
+    
+                        <div id="chartContainer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col s12 m6">
                 <div class="section-box">
@@ -46,7 +80,36 @@
                         <label for="utilities">Monatliche Nebenkosten-Vorauszahlung (€):</label>
                     </div>
 
-                    <h3>Räume verwalten</h3>
+                </div>
+                <div class="section-box"> <!-- Box for Tenant Management and List -->
+                    <h4>Mieter verwalten</h4>
+                    <div id="tenantManagement">
+                        <div class="input-field">
+                            <input type="text" id="tenantNameInput" placeholder="z.B. Firma A">
+                            <label for="tenantNameInput">Mietername:</label>
+                        </div>
+                        <button class="btn waves-effect waves-light" id="addTenantBtn"><i class="material-icons left">person_add</i>Mieter hinzufügen</button>
+                    </div>
+                    <div id="tenantList">
+                        <h4>Mieterliste</h4>
+                        <table class="striped highlight">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Aktion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenantTableBody">
+                                <!-- Mieterdaten werden hier eingefügt -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="section-box"> <!-- Box for Room Management and List -->
+                    <h4>Räume verwalten</h4>
                     <div id="addRoomForm">
                         <div class="input-field">
                             <input type="text" id="roomName" placeholder="z.B. Büro 1, Küche">
@@ -77,37 +140,8 @@
                         <button class="btn waves-effect waves-light" id="saveRoomBtn" style="display:none;"><i class="material-icons left">save</i>Änderungen speichern</button>
                         <button class="btn waves-effect waves-light red" id="cancelEditBtn" style="display:none;"><i class="material-icons left">cancel</i>Abbrechen</button>
                     </div>
-
-                    <h3>Mieter verwalten</h3>
-                    <div id="tenantManagement">
-                        <div class="input-field">
-                            <input type="text" id="tenantNameInput" placeholder="z.B. Firma A">
-                            <label for="tenantNameInput">Mietername:</label>
-                        </div>
-                        <button class="btn waves-effect waves-light" id="addTenantBtn"><i class="material-icons left">person_add</i>Mieter hinzufügen</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col s12 m6">
-                <div class="section-box">
-                    <div id="tenantList">
-                        <h3>Mieterliste</h3>
-                        <table class="striped highlight">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Aktion</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tenantTableBody">
-                                <!-- Mieterdaten werden hier eingefügt -->
-                            </tbody>
-                        </table>
-                    </div>
-
                     <div id="roomList">
-                        <h3>Raumliste</h3>
+                        <h4>Raumliste</h4>
                         <table class="striped highlight">
                             <thead>
                                 <tr>
@@ -128,43 +162,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12">
-                <div class="section-box">
-                    <div id="results" style="display: none;">
-                        <h2>Berechnungsergebnisse</h2>
-                        <div id="calculationSummary"></div>
-                        <table class="striped highlight">
-                            <thead>
-                                <tr>
-                                    <th>Mieter</th>
-                                    <th>Private Fläche (m²)</th>
-                                    <th>Anteil private Fläche (%)</th>
-                                    <th>Anteil Gemeinschaftsfläche (m²)</th>
-                                    <th>Anteil Gemeinschaftskosten (€)</th>
-                                    <th>Kaltmiete (€)</th>
-                                    <th>Nebenkosten (€)</th>
-                                    <th>Gesamtmiete (€)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="resultsTableBody">
-                                <!-- Ergebnisse werden hier eingefügt -->
-                            </tbody>
-                        </table>
-                        <p><strong>Prüfsumme (Gesamtmiete aller Mieter + Kosten ungenutzter Flächen):</strong> <span id="checksumRent">0.00</span> €</p>
-
-                        <div id="chartContainer">
-                            <h3>Verteilung der Flächen und Kosten</h3>
-                            <canvas id="areaDistributionChart"></canvas>
-                            <canvas id="rentDistributionChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="scripts/app.js" type="module"></script>
     <script>

@@ -15,7 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveRoomBtn').addEventListener('click', saveRoom);
     document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
     document.getElementById('addTenantBtn').addEventListener('click', addTenant);
-    document.getElementById('calculateRentBtn').addEventListener('click', calculateRent);
+    document.getElementById('calculateRentBtn').addEventListener('click', () => {
+        console.log('Calculate Rent button clicked'); // Add console log
+        calculateRent();
+    });
     document.getElementById('exportDataBtn').addEventListener('click', exportData);
 
     // Event listeners for input changes to trigger recalculation
@@ -27,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     importFileInput.addEventListener('change', importData);
     importButtonContainer.addEventListener('click', () => importFileInput.click());
 
-    // Initialize Materialize Dropdown
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, { coverTrigger: false });
+    // Initialize Materialize components
+    var dropdownElems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(dropdownElems, { coverTrigger: false });
+
+    var selectElems = document.querySelectorAll('select');
+    M.FormSelect.init(selectElems);
 });

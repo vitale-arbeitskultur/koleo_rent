@@ -61,7 +61,7 @@ export function importData(event) {
             renderRoomList();
             renderTenantList(); // Render tenant list after import
             populateTenantSelect(); // Repopulate tenant select dropdown
-            resultsDiv.style.display = 'none'; // Hide old results
+            calculateRent(); // Recalculate and render results after import
             alert('Daten erfolgreich importiert!');
 
         } catch (error) {

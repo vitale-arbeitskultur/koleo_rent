@@ -4,6 +4,7 @@ import { renderResults, totalColdRentInput, utilitiesInput } from './ui.js';
 export function calculateRent() {
     const totalColdRent = parseFloat(totalColdRentInput.value);
     if (isNaN(totalColdRent) || totalColdRent <= 0) {
+        console.log('Calculate Rent: Invalid totalColdRent'); // Log before return
         alert('Bitte eine gültige positive Gesamtkaltmiete eingeben.');
         return;
     }
@@ -33,6 +34,7 @@ export function calculateRent() {
     });
 
     if (totalArea === 0) {
+        console.log('Calculate Rent: Total area is 0'); // Log before return
         alert('Keine Flächen vorhanden, Berechnung nicht möglich.');
         return;
     }
@@ -43,11 +45,13 @@ export function calculateRent() {
 
     // Handle scenario with only common areas or no private areas
     if (totalPrivateArea <= 0 && Object.keys(tenantRentData).length > 0) {
+        console.log('Calculate Rent: Tenants exist but no private areas'); // Log before alert
         alert('Warnung: Es gibt Mieter, aber keine privaten Flächen, auf die Gemeinschaftskosten verteilt werden können.');
         // Maybe distribute common costs equally? Or show an error? For now, skip distribution.
         // totalPrivateArea = 1; // Avoid division by zero, but the result won't be meaningful
     }
     if (totalPrivateArea <= 0 && totalCommonArea > 0) {
+         console.log('Calculate Rent: No private areas but common areas exist'); // Log before return
          const calculatedData = {
              totalColdRent: totalColdRent,
              utilities: data.utilities,
@@ -65,6 +69,7 @@ export function calculateRent() {
          return; // Stop calculation here
      }
      if (totalPrivateArea <= 0 && totalCommonArea == 0 && Object.keys(tenantRentData).length == 0) {
+          console.log('Calculate Rent: No private areas, no common areas, and no tenants'); // Log before return
           const calculatedData = {
               totalColdRent: totalColdRent,
               utilities: data.utilities,
@@ -135,8 +140,38 @@ export function calculateRent() {
         calculatedTotalRentSum: calculatedTotalRentSum,
         tenantRentData: tenantRentData,
         unallocatedArea: unallocatedArea,
-        unallocatedCost: unallocatedCost
+        unallocatedCost: unallocatedCost,
+        tenantAreaDistribution: calculateTenantAreaDistribution(data.tenants, data.rooms) // Add tenant area distribution
     };
 
     renderResults(calculatedData);
+}
+
+function calculateTenantAreaDistribution(tenants, rooms) {
+    const distribution = {};
+    let totalRentedArea = 0;
+
+    // Initialize distribution for all tenants
+    tenants.forEach(tenant => {
+        distribution[tenant.id] = { name: tenant.name, area: 0 };
+    });
+
+    // Calculate private area for each tenant and total rented area
+    rooms.forEach(room => {
+        if (!room.isCommonArea && room.tenantId !== null) {
+            distribution[room.tenantId].area += room.area;
+            totalRentedArea += room.area;
+        }
+    });
+
+    // Calculate percentage for each tenant
+    for (const tenantId in distribution) {
+        if (totalRentedArea > 0) {
+            distribution[tenantId].percentage = (distribution[tenantId].area / totalRentedArea) * 100;
+        } else {
+            distribution[tenantId].percentage = 0;
+        }
+    }
+
+    return distribution;
 }

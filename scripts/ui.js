@@ -22,7 +22,7 @@ export const checksumRentSpan = document.getElementById('checksumRent');
 export const totalAreaDisplaySpan = document.getElementById('totalAreaDisplay');
 export const importFileInput = document.getElementById('importFile');
 export const importButtonContainer = document.getElementById('importButtonContainer');
-
+export const noCalculationMessage = document.getElementById('noCalculationMessage');
 // --- Rendering Functions ---
 export function renderTenantList() {
     tenantTableBody.innerHTML = ''; // Liste leeren
@@ -90,6 +90,7 @@ export function renderRoomList() {
     }
     totalAreaDisplaySpan.textContent = currentTotalArea.toFixed(2);
     resultsDiv.style.display = 'none'; // Hide results after room list changes
+    noCalculationMessage.style.display = 'block'; // Show message
 }
 
 export function populateTenantSelect() {
@@ -154,4 +155,6 @@ export function renderResults(calculatedData) {
 
     checksumRentSpan.textContent = calculatedData.calculatedTotalRentSum.toFixed(2);
     resultsDiv.style.display = 'block'; // Show results
+    noCalculationMessage.style.display = 'none'; // Hide message
+
 }

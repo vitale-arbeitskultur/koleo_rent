@@ -32,9 +32,15 @@ body {
     border-radius: 8px; /* Rounded corners for container */
 }
 
-h1, h2 {
+h1 {
     text-align: center;
     color: #ffffff; /* White color for headings */
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff; /* White color for headings */
+    font-size: 1.8em; /* Reduce font size for h2 */
 }
 
 /* Custom layout classes */
