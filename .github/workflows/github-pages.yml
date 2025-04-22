@@ -7,6 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
+    permissions:
+      pages: write # Grant write permission to the GITHUB_TOKEN for the pages scope
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,3 +27,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./ # The directory containing your built site (usually the root for static pages)
+          cname: koleo.rent # Add this line with your custom domain
