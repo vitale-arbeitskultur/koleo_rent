@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveRoomBtn').addEventListener('click', saveRoom);
     document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
     document.getElementById('addTenantBtn').addEventListener('click', addTenant);
-    document.getElementById('calculateRentBtn').addEventListener('click', calculateRent); // Assuming you add an ID to the calculate button
+    document.getElementById('calculateRentBtn').addEventListener('click', calculateRent);
+    document.getElementById('exportDataBtn').addEventListener('click', exportData);
 
     // Event listeners for input changes to trigger recalculation
     totalColdRentInput.addEventListener('input', calculateRent);

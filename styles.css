@@ -4,10 +4,12 @@ body {
     padding: 20px;
     background-color: #121212; /* Dark background */
     color: #e0e0e0; /* Light text */
+    margin: 0;
+    padding: 0;
 }
 
 .nav-wrapper {
-    background-color: #00796b; /* Rich green-blue */
+    background-color: #2a2a2a; /* Darker background for nav */
     padding: 0 20px; /* Add padding */
     max-width: 1200px; /* Match container width */
     margin: 0 auto; /* Center the navbar */
