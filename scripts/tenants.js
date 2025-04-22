@@ -1,9 +1,12 @@
 import { data } from './data.js';
-import { renderTenantList, populateTenantSelect, resultsDiv, tenantNameInput } from './ui.js';
+import { renderTenantList, populateTenantSelect, resultsDiv, addTenantRow } from './ui.js';
 import { calculateRent } from './calculation.js';
 
 export function addTenant() {
-    const name = tenantNameInput.value.trim();
+    addTenantRow();
+}
+
+export function saveTenant(name) {
     if (!name) {
         alert('Bitte einen Mietername eingeben.');
         return;
@@ -23,7 +26,6 @@ export function addTenant() {
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown in room form
     M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
-    tenantNameInput.value = ''; // Clear input
     calculateRent(); // Recalculate after adding a tenant
 }
 

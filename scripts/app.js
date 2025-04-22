@@ -1,4 +1,4 @@
-import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, tenantNameInput, importFileInput, importButtonContainer } from './ui.js';
+import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importButtonContainer } from './ui.js';
 import { addTenant } from './tenants.js';
 import { addRoom, saveRoom, cancelEdit } from './rooms.js';
 import { calculateRent } from './calculation.js';

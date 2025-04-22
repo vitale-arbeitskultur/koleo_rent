@@ -147,6 +147,24 @@ table td {
     color: #e0e0e0; /* Light text for table data */
 }
 
+/* Style for the input field in the new tenant row */
+.new-tenant-row input[type="text"] {
+    color: #e0e0e0; /* White text */
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove default border */
+    border-bottom: 1px solid #424242; /* Add bottom border */
+    box-shadow: none; /* Remove box shadow */
+    height: 2rem; /* Adjust height to match other inputs */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    width: 100%; /* Make input fill the cell */
+}
+
+.new-tenant-row input[type="text"]:focus {
+    border-bottom-color: #64b5f6; /* Accent color on focus */
+    box-shadow: 0 1px 0 0 #64b5f6;
+}
+
 
 /* Adjust Materialize components */
 #results {

@@ -1,5 +1,5 @@
 import { data } from './data.js';
-import { deleteTenant, editTenant } from './tenants.js';
+import { deleteTenant, editTenant, saveTenant } from './tenants.js';
 import { deleteRoom, editRoom } from './rooms.js';
 import { calculateRent } from './calculation.js';
 import { importData } from './io.js';
@@ -13,7 +13,6 @@ export const roomTenantSelect = document.getElementById('roomTenantSelect');
 export const isCommonAreaCheckbox = document.getElementById('isCommonArea');
 export const roomTableBody = document.getElementById('roomTableBody');
 
-export const tenantNameInput = document.getElementById('tenantNameInput');
 export const tenantTableBody = document.getElementById('tenantTableBody');
 export const resultsDiv = document.getElementById('results');
 export const resultsTableBody = document.getElementById('resultsTableBody');
@@ -25,7 +24,9 @@ export const importButtonContainer = document.getElementById('importButtonContai
 export const noCalculationMessage = document.getElementById('noCalculationMessage');
 // --- Rendering Functions ---
 export function renderTenantList() {
-    tenantTableBody.innerHTML = ''; // Liste leeren
+    // This function will now only render existing tenants, not the input row
+    const existingTenantRows = tenantTableBody.querySelectorAll('tr:not(.new-tenant-row)');
+    existingTenantRows.forEach(row => row.remove());
 
     if (data.tenants.length === 0) {
         const row = tenantTableBody.insertRow();
@@ -53,6 +54,33 @@ export function renderTenantList() {
             actionCell.appendChild(deleteIcon);
         });
     }
+}
+
+export function addTenantRow() {
+    // Remove any existing new tenant row
+    const existingNewRow = tenantTableBody.querySelector('.new-tenant-row');
+    if (existingNewRow) {
+        existingNewRow.remove();
+    }
+
+    const row = tenantTableBody.insertRow(0); // Insert at the top
+    row.classList.add('new-tenant-row');
+
+    const nameCell = row.insertCell();
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.placeholder = 'Mietername';
+    nameCell.appendChild(nameInput);
+
+    const actionCell = row.insertCell();
+    const saveIcon = document.createElement('i');
+    saveIcon.classList.add('fas', 'fa-save', 'icon-button'); // Using Font Awesome classes
+    saveIcon.title = 'Speichern';
+    saveIcon.addEventListener('click', () => {
+        saveTenant(nameInput.value);
+        row.remove(); // Remove the input row after saving
+    });
+    actionCell.appendChild(saveIcon);
 }
 
 export function renderRoomList() {
