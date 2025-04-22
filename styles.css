@@ -1,0 +1,158 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+}
+
+.container {
+    max-width: 1200px; /* Increase max-width to accommodate two columns */
+    margin: auto;
+    padding: 20px;
+    background-color: #1e1e1e; /* Slightly lighter dark background for container */
+    border-radius: 8px; /* Rounded corners for container */
+}
+
+h1, h2 {
+    text-align: center;
+    color: #ffffff; /* White color for headings */
+}
+
+/* Custom layout classes */
+.two-column-container {
+    display: flex;
+    gap: 20px; /* Space between columns */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.left-column, .right-column {
+    flex: 1; /* Distribute space equally */
+    min-width: 300px; /* Minimum width before wrapping */
+}
+
+.full-width-section {
+    width: 100%;
+    margin-top: 20px; /* Space above this section */
+    clear: both; /* Clear floats if any, good practice with flex */
+}
+
+/* Box styling for sections */
+.section-box {
+    background-color: #2a2a2a; /* Darker background for boxes */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners for boxes */
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust Materialize components for dark theme */
+.input-field input[type=text]:not(.browser-default),
+.input-field input[type=number]:not(.browser-default),
+.input-field select {
+    color: #e0e0e0; /* Light text for inputs */
+    border-bottom-color: #424242; /* Darker border */
+}
+
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field input[type=number]:not(.browser-default):focus:not([readonly]) {
+    border-bottom-color: #64b5f6; /* Accent color on focus */
+    box-shadow: 0 1px 0 0 #64b5f6;
+}
+
+.input-field label {
+    color: #bdbdbd; /* Lighter grey for labels */
+}
+
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+.input-field input[type=number]:not(.browser-default):focus:not([readonly]) + label {
+    color: #64b5f6; /* Accent color for label on focus */
+}
+
+/* Checkbox styling */
+[type="checkbox"]+span:not(.lever):before, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
+    border: 2px solid #bdbdbd; /* Lighter grey border for checkbox */
+}
+
+[type="checkbox"]:checked+span:not(.lever):before {
+    border-right-color: #64b5f6; /* Accent color for checkmark */
+    border-bottom-color: #64b5f6;
+}
+
+/* Button styling */
+.btn, .btn-large, .btn-small {
+    background-color: #64b5f6; /* Accent color for buttons */
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #42a5f5; /* Slightly darker accent on hover */
+}
+
+.btn.red, .btn-large.red, .btn-small.red {
+    background-color: #e57373 !important; /* Red for delete/cancel */
+}
+
+.btn.red:hover, .btn-large.red:hover, .btn-small.red:hover {
+    background-color: #ef5350 !important;
+}
+
+
+/* Table styling */
+table.striped > tbody > tr:nth-child(odd) {
+    background-color: #3a3a3a; /* Darker stripe */
+}
+
+table.striped > tbody > tr:nth-child(even) {
+    background-color: #2a2a2a; /* Lighter stripe */
+}
+
+table.highlight > tbody > tr:hover {
+    background-color: #424242; /* Highlight on hover */
+}
+
+table th {
+    background-color: #424242; /* Darker background for table headers */
+    color: #ffffff; /* White text for headers */
+}
+
+table td {
+    color: #e0e0e0; /* Light text for table data */
+}
+
+
+/* Adjust Materialize components */
+#results {
+    margin-top: 0; /* Remove top margin as it's now in the right column */
+    padding-top: 0; /* Remove top padding */
+    border-top: none; /* Remove top border */
+}
+
+#chartContainer {
+    margin-top: 0; /* Adjust margin for charts */
+}
+
+.io-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #424242; /* Darker border */
+}
+
+/* Hide default file input */
+#importFile {
+    display: none;
+}
+
+/* File input styling */
+.file-field .file-path-wrapper {
+    padding-left: 0;
+}
+
+.file-field .file-path {
+    color: #e0e0e0; /* Light text for file path */
+    border-bottom-color: #424242; /* Darker border */
+}
+
+.file-field .file-path:focus:not([readonly]) {
+    border-bottom-color: #64b5f6; /* Accent color on focus */
+    box-shadow: 0 1px 0 0 #64b5f6;
+}

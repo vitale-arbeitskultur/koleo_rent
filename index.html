@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoWorking Mietenberechnung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!" onclick="exportData()">Daten exportieren</a></li>
+        <li>
+            <div class="file-field input-field" style="margin: 0; padding: 0 16px;">
+                <div style="display: block; width: 100%;">
+                    <span>Daten importieren</span>
+                    <input type="file" id="importFile" accept=".json" onchange="importData(event)">
+                </div>
+                <div class="file-path-wrapper" style="display: none;">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+    </ul>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">CoWorking Mietenberechnung</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Daten<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="section-box">
+                    <div class="input-field">
+                        <input type="number" id="totalColdRent" placeholder="z.B. 2500" step="0.01">
+                        <label for="totalColdRent">Gesamte Kaltmiete (€):</label>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="number" id="utilities" placeholder="z.B. 500" step="0.01">
+                        <label for="utilities">Monatliche Nebenkosten-Vorauszahlung (€):</label>
+                    </div>
+
+                    <h2>Räume verwalten</h2>
+                    <div id="addRoomForm">
+                        <div class="input-field">
+                            <input type="text" id="roomName" placeholder="z.B. Büro 1, Küche">
+                            <label for="roomName">Raumname:</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="number" id="roomArea" placeholder="z.B. 25" step="0.1">
+                            <label for="roomArea">Fläche (m²):</label>
+                        </div>
+
+                        <div class="input-field">
+                            <select id="roomTenantSelect">
+                                <option value="-1">Kein Mieter</option>
+                                <!-- Mieteroptionen werden hier eingefügt -->
+                            </select>
+                            <label for="roomTenantSelect">Mieter zuweisen (leer lassen für nicht zugewiesen):</label>
+                        </div>
+
+                        <p>
+                            <label>
+                                <input type="checkbox" id="isCommonArea">
+                                <span>Ist Gemeinschaftsfläche?</span>
+                            </label>
+                        </p>
+
+                        <button class="btn waves-effect waves-light" id="addRoomBtn" onclick="addRoom()"><i class="material-icons left">add</i>Raum hinzufügen</button>
+                        <button class="btn waves-effect waves-light" id="saveRoomBtn" style="display:none;" onclick="saveRoom()"><i class="material-icons left">save</i>Änderungen speichern</button>
+                        <button class="btn waves-effect waves-light red" id="cancelEditBtn" style="display:none;" onclick="cancelEdit()"><i class="material-icons left">cancel</i>Abbrechen</button>
+                    </div>
+
+                    <h2>Mieter verwalten</h2>
+                    <div id="tenantManagement">
+                        <div class="input-field">
+                            <input type="text" id="tenantNameInput" placeholder="z.B. Firma A">
+                            <label for="tenantNameInput">Mietername:</label>
+                        </div>
+                        <button class="btn waves-effect waves-light" onclick="addTenant()"><i class="material-icons left">person_add</i>Mieter hinzufügen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="section-box">
+                    <div id="tenantList">
+                        <h3>Mieterliste</h3>
+                        <table class="striped highlight">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Aktion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenantTableBody">
+                                <!-- Mieterdaten werden hier eingefügt -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="roomList">
+                        <h3>Raumliste</h3>
+                        <table class="striped highlight">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Fläche (m²)</th>
+                                    <th>Mieter</th>
+                                    <th>Typ</th>
+                                    <th>Aktion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="roomTableBody">
+                                <!-- Raumdaten werden hier eingefügt -->
+                            </tbody>
+                        </table>
+                        <p><strong>Gesamtfläche:</strong> <span id="totalAreaDisplay">0.0</span> m²</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <div class="section-box">
+                    <button class="btn waves-effect waves-light" onclick="calculateRent()" style="margin-top: 20px; width: 100%;"><i class="material-icons left">calculate</i>Miete berechnen</button>
+                    <div id="results" style="display: none;">
+                        <h2>Berechnungsergebnisse</h2>
+                        <div id="calculationSummary"></div>
+                        <table class="striped highlight">
+                            <thead>
+                                <tr>
+                                    <th>Mieter</th>
+                                    <th>Private Fläche (m²)</th>
+                                    <th>Anteil private Fläche (%)</th>
+                                    <th>Anteil Gemeinschaftsfläche (m²)</th>
+                                    <th>Anteil Gemeinschaftskosten (€)</th>
+                                    <th>Kaltmiete (€)</th>
+                                    <th>Nebenkosten (€)</th>
+                                    <th>Gesamtmiete (€)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Ergebnisse werden hier eingefügt -->
+                            </tbody>
+                        </table>
+                        <p><strong>Prüfsumme (Gesamtmiete aller Mieter + Kosten ungenutzter Flächen):</strong> <span id="checksumRent">0.00</span> €</p>
+
+                        <div id="chartContainer" style="margin-top: 20px;">
+                            <h3>Verteilung der Flächen und Kosten</h3>
+                            <canvas id="areaDistributionChart"></canvas>
+                            <canvas id="rentDistributionChart" style="margin-top: 20px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="app.js" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems, { coverTrigger: false });
+        });
+    </script>
+</body>
+</html>
