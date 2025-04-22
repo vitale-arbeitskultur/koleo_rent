@@ -1,4 +1,4 @@
-import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, tenantNameInput, importFileInput } from './ui.js';
+import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, tenantNameInput, importFileInput, importButtonContainer } from './ui.js';
 import { addTenant } from './tenants.js';
 import { addRoom, saveRoom, cancelEdit } from './rooms.js';
 import { calculateRent } from './calculation.js';
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for file import
     importFileInput.addEventListener('change', importData);
+    importButtonContainer.addEventListener('click', () => importFileInput.click());
 
     // Initialize Materialize Dropdown
     var elems = document.querySelectorAll('.dropdown-trigger');

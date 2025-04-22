@@ -21,6 +21,7 @@ export const calculationSummaryDiv = document.getElementById('calculationSummary
 export const checksumRentSpan = document.getElementById('checksumRent');
 export const totalAreaDisplaySpan = document.getElementById('totalAreaDisplay');
 export const importFileInput = document.getElementById('importFile');
+export const importButtonContainer = document.getElementById('importButtonContainer');
 
 // --- Rendering Functions ---
 export function renderTenantList() {
