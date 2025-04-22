@@ -111,16 +111,23 @@
                 <div class="section-box"> <!-- Box for Room Management and List -->
                     <h4>Räume verwalten</h4>
                     <div id="addRoomForm">
+                        <p>
+                            <label>
+                                <input type="checkbox" id="isCommonArea">
+                                <span>Ist Gemeinschaftsfläche?</span>
+                            </label>
+                        </p>
+                    
                         <div class="input-field">
                             <input type="text" id="roomName" placeholder="z.B. Büro 1, Küche">
                             <label for="roomName">Raumname:</label>
                         </div>
-
+                    
                         <div class="input-field">
                             <input type="number" id="roomArea" placeholder="z.B. 25" step="0.1">
                             <label for="roomArea">Fläche (m²):</label>
                         </div>
-
+                    
                         <div class="input-field">
                             <select id="roomTenantSelect">
                                 <option value="-1">Kein Mieter</option>
@@ -128,14 +135,7 @@
                             </select>
                             <label for="roomTenantSelect">Mieter zuweisen (leer lassen für nicht zugewiesen):</label>
                         </div>
-
-                        <p>
-                            <label>
-                                <input type="checkbox" id="isCommonArea">
-                                <span>Ist Gemeinschaftsfläche?</span>
-                            </label>
-                        </p>
-
+                    
                         <button class="btn waves-effect waves-light" id="addRoomBtn"><i class="material-icons left">add</i>Raum hinzufügen</button>
                         <button class="btn waves-effect waves-light" id="saveRoomBtn" style="display:none;"><i class="material-icons left">save</i>Änderungen speichern</button>
                         <button class="btn waves-effect waves-light red" id="cancelEditBtn" style="display:none;"><i class="material-icons left">cancel</i>Abbrechen</button>

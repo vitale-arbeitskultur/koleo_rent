@@ -10,7 +10,6 @@ export const utilitiesInput = document.getElementById('utilities');
 export const roomNameInput = document.getElementById('roomName');
 export const roomAreaInput = document.getElementById('roomArea');
 export const roomTenantSelect = document.getElementById('roomTenantSelect');
-export const isCommonAreaCheckbox = document.getElementById('isCommonArea');
 export const roomTableBody = document.getElementById('roomTableBody');
 
 export const tenantTableBody = document.getElementById('tenantTableBody');
@@ -139,6 +138,23 @@ export function clearRoomForm() {
     roomTenantSelect.value = '-1'; // Reset tenant selection
     isCommonAreaCheckbox.checked = false;
 }
+
+// --- Event Listeners ---
+export const isCommonAreaCheckbox = document.getElementById('isCommonArea');
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isCommonAreaCheckbox) { // Add a check to ensure the element exists
+        isCommonAreaCheckbox.addEventListener('change', function() {
+            const tenantSelectContainer = roomTenantSelect.closest('.input-field');
+            if (this.checked) {
+                tenantSelectContainer.style.display = 'none';
+                roomTenantSelect.value = '-1'; // Reset tenant selection when hidden
+            } else {
+                tenantSelectContainer.style.display = ''; // Or 'block', depending on default
+            }
+        });
+    }
+});
 
 export function renderResults(calculatedData) {
     resultsTableBody.innerHTML = ''; // Clear results
