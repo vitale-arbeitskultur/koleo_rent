@@ -260,3 +260,25 @@ table td {
 .tenant-group-2 {
     background-color: #3d3d3d; /* Slightly different subtle dark grey */
 }
+/* Save Warning Modal Styles */
+.modal {
+    background-color: #2a2a2a; /* Darker background for modal */
+    color: #e0e0e0; /* Light text */
+}
+
+.modal .modal-content h4 {
+    color: #ffffff; /* White color for modal title */
+}
+
+.modal .modal-footer {
+    background-color: #2a2a2a; /* Match modal background */
+    border-top: 1px solid #424242; /* Darker border */
+}
+
+.modal .modal-footer .btn-flat {
+    color: #64b5f6; /* Accent color for buttons */
+}
+
+.modal .modal-footer .btn-flat.waves-red {
+    color: #e57373; /* Red color for "Close without saving" */
+}

@@ -32,6 +32,7 @@ export function saveTenant(name) {
     };
 
     data.tenants.push(newTenant);
+    markDataAsChanged(); // Mark data as changed
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown in room form
     initializeMaterializeSelects(); // Re-initialize Materialize select
@@ -52,6 +53,7 @@ export function deleteTenant(id) {
         return;
     }
     data.tenants = data.tenants.filter(tenant => tenant.id !== id);
+    markDataAsChanged(); // Mark data as changed
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
     initializeMaterializeSelects(); // Re-initialize Materialize select
@@ -83,6 +85,7 @@ export function editTenant(id) {
     }
 
     tenantToEdit.name = trimmedName;
+    markDataAsChanged(); // Mark data as changed
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
     initializeMaterializeSelects(); // Re-initialize Materialize select

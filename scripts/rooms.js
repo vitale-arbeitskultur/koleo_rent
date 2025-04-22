@@ -32,6 +32,7 @@ export function addRoom() {
     };
 
     data.rooms.push(newRoom);
+    markDataAsChanged(); // Mark data as changed
     renderRoomList();
     clearRoomForm();
     initializeMaterializeSelects(); // Re-initialize Materialize select
@@ -44,6 +45,7 @@ export function addRoom() {
  */
 export function deleteRoom(id) {
     data.rooms = data.rooms.filter(room => room.id !== id);
+    markDataAsChanged(); // Mark data as changed
     renderRoomList();
     calculateRent(); // Recalculate after deleting a room
 }
@@ -98,6 +100,7 @@ export function saveRoom() {
     roomToUpdate.area = area;
     roomToUpdate.tenantId = assignedTenantId;
     roomToUpdate.isCommonArea = isCommon;
+    markDataAsChanged(); // Mark data as changed
 
     renderRoomList();
     clearRoomForm();

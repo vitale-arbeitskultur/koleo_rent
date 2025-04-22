@@ -5,6 +5,16 @@ export let data = {
     tenants: [] // Structure: {id: number, name: string}
 };
 
+export let dataChanged = false;
+
+export function markDataAsChanged() {
+    dataChanged = true;
+}
+
+export function markDataAsSaved() {
+    dataChanged = false;
+}
+
 /**
  * Sets the entire application data object.
  * @param {object} newData - The new data object to set.

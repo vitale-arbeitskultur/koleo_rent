@@ -31,6 +31,7 @@ export function exportData() {
     linkElement.setAttribute('href', dataUri);
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
+    markDataAsSaved(); // Mark data as saved after export
 }
 
 /**

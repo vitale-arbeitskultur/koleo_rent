@@ -38,6 +38,12 @@ export const noCalculationMessage = document.getElementById('noCalculationMessag
 export const messageArea = document.getElementById('messageArea');
 export const messageText = document.getElementById('messageText');
 
+// --- Modal Elements ---
+const saveWarningModal = document.getElementById('saveWarningModal');
+let saveWarningModalInstance; // To hold the Materialize modal instance
+export const exportBeforeCloseBtn = document.getElementById('exportBeforeCloseBtn');
+export const closeWithoutSavingBtn = document.getElementById('closeWithoutSavingBtn');
+
 // --- Utility Functions ---
 /**
  * Displays a message to the user in the message area.
@@ -299,7 +305,37 @@ export function clearRoomForm() {
 // --- Event Listeners ---
 export const isCommonAreaCheckbox = document.getElementById('isCommonArea');
 
+// --- Modal Functions ---
+/**
+ * Initializes the Materialize save warning modal.
+ */
+export function initializeSaveWarningModal() {
+    if (saveWarningModal) {
+        saveWarningModalInstance = M.Modal.init(saveWarningModal, { dismissible: false }); // Prevent closing by clicking outside
+    }
+}
+
+/**
+ * Shows the save warning modal.
+ */
+export function showSaveWarningModal() {
+    if (saveWarningModalInstance) {
+        saveWarningModalInstance.open();
+    }
+}
+
+/**
+ * Hides the save warning modal.
+ */
+export function hideSaveWarningModal() {
+    if (saveWarningModalInstance) {
+        saveWarningModalInstance.close();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    initializeSaveWarningModal(); // Initialize the save warning modal
+
     if (isCommonAreaCheckbox) { // Add a check to ensure the element exists
         isCommonAreaCheckbox.addEventListener('change', function() {
             const tenantSelectContainer = roomTenantSelect.closest('.input-field');
