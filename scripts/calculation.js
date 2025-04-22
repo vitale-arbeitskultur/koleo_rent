@@ -1,14 +1,9 @@
 import { data } from './data.js';
-import { renderResults, totalColdRentInput, utilitiesInput } from './ui.js';
+import { renderResults, totalColdRentInput, utilitiesInput, resultsDiv, noCalculationMessage } from './ui.js';
 
 export function calculateRent() {
     const totalColdRent = parseFloat(totalColdRentInput.value);
-    if (isNaN(totalColdRent) || totalColdRent <= 0) {
-        console.log('Calculate Rent: Invalid totalColdRent'); // Log before return
-        alert('Bitte eine gültige positive Gesamtkaltmiete eingeben.');
-        return;
-    }
-    data.totalColdRent = totalColdRent; // Store it in our data object
+    data.totalColdRent = isNaN(totalColdRent) || totalColdRent <= 0 ? 0 : totalColdRent; // Store it in our data object, default to 0 if invalid
 
     // Nebenkosten verarbeiten
     const utilities = parseFloat(utilitiesInput.value);
@@ -33,60 +28,18 @@ export function calculateRent() {
         }
     });
 
-    if (totalArea === 0) {
-        console.log('Calculate Rent: Total area is 0'); // Log before return
-        alert('Keine Flächen vorhanden, Berechnung nicht möglich.');
-        return;
+    // Check if necessary data is provided
+    if (data.totalColdRent <= 0 || totalArea === 0 || (totalPrivateArea <= 0 && Object.keys(tenantRentData).length > 0)) {
+        // Hide results and show message if data is incomplete
+        resultsDiv.style.display = 'none';
+        noCalculationMessage.style.display = 'block';
+        return; // Stop calculation here
     }
 
-    const rentPerTotalSqm = totalColdRent / totalArea;
+
+    const rentPerTotalSqm = data.totalColdRent / totalArea;
     const totalCommonCost = totalCommonArea * rentPerTotalSqm;
     let calculatedTotalRentSum = 0; // For verification
-
-    // Handle scenario with only common areas or no private areas
-    if (totalPrivateArea <= 0 && Object.keys(tenantRentData).length > 0) {
-        console.log('Calculate Rent: Tenants exist but no private areas'); // Log before alert
-        alert('Warnung: Es gibt Mieter, aber keine privaten Flächen, auf die Gemeinschaftskosten verteilt werden können.');
-        // Maybe distribute common costs equally? Or show an error? For now, skip distribution.
-        // totalPrivateArea = 1; // Avoid division by zero, but the result won't be meaningful
-    }
-    if (totalPrivateArea <= 0 && totalCommonArea > 0) {
-         console.log('Calculate Rent: No private areas but common areas exist'); // Log before return
-         const calculatedData = {
-             totalColdRent: totalColdRent,
-             utilities: data.utilities,
-             totalArea: totalArea,
-             totalPrivateArea: totalPrivateArea,
-             totalCommonArea: totalCommonArea,
-             rentPerTotalSqm: rentPerTotalSqm,
-             totalCommonCost: totalCommonCost,
-             calculatedTotalRentSum: 0, // Checksum not meaningful here
-             tenantRentData: {},
-             unallocatedArea: totalArea - totalCommonArea, // All non-common area is unallocated
-             unallocatedCost: (totalArea - totalCommonArea) * rentPerTotalSqm
-         };
-         renderResults(calculatedData);
-         return; // Stop calculation here
-     }
-     if (totalPrivateArea <= 0 && totalCommonArea == 0 && Object.keys(tenantRentData).length == 0) {
-          console.log('Calculate Rent: No private areas, no common areas, and no tenants'); // Log before return
-          const calculatedData = {
-              totalColdRent: totalColdRent,
-              utilities: data.utilities,
-              totalArea: totalArea,
-              totalPrivateArea: totalPrivateArea,
-              totalCommonArea: totalCommonArea,
-              rentPerTotalSqm: rentPerTotalSqm,
-              totalCommonCost: totalCommonCost,
-              calculatedTotalRentSum: totalColdRent + data.utilities, // Rent is for unassigned space
-              tenantRentData: {},
-              unallocatedArea: totalArea,
-              unallocatedCost: totalArea * rentPerTotalSqm
-          };
-          renderResults(calculatedData);
-          return;
-      }
-
 
     for (const tenantId in tenantRentData) {
         const tenantData = tenantRentData[tenantId];
@@ -130,7 +83,7 @@ export function calculateRent() {
 
 
     const calculatedData = {
-        totalColdRent: totalColdRent,
+        totalColdRent: data.totalColdRent,
         utilities: data.utilities,
         totalArea: totalArea,
         totalPrivateArea: totalPrivateArea,

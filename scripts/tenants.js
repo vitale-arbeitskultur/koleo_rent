@@ -22,6 +22,7 @@ export function addTenant() {
     data.tenants.push(newTenant);
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown in room form
+    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
     tenantNameInput.value = ''; // Clear input
     calculateRent(); // Recalculate after adding a tenant
 }
@@ -37,6 +38,7 @@ export function deleteTenant(id) {
     data.tenants = data.tenants.filter(tenant => tenant.id !== id);
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
+    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
     calculateRent(); // Recalculate after deleting a tenant
 }
 
@@ -62,6 +64,7 @@ export function editTenant(id) {
     tenantToEdit.name = trimmedName;
     renderTenantList();
     populateTenantSelect(); // Update tenant dropdown
+    M.FormSelect.init(roomTenantSelect); // Re-initialize Materialize select
     resultsDiv.style.display = 'none'; // Hide old results
     calculateRent(); // Recalculate after editing a tenant
 }

@@ -8,6 +8,10 @@ body {
     padding: 0;
 }
 
+nav {
+    background-color: #1e1e1e; /* Darker background for nav */
+}
+
 .nav-wrapper {
     background-color: #2a2a2a; /* Darker background for nav */
     padding: 0 20px; /* Add padding */
