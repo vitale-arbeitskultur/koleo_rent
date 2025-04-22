@@ -39,12 +39,36 @@ nav {
 h1 {
     text-align: center;
     color: #ffffff; /* White color for headings */
+    font-size: 2.5em; /* Optimize font size for h1 */
 }
 
 h2 {
     text-align: center;
     color: #ffffff; /* White color for headings */
-    font-size: 1.8em; /* Reduce font size for h2 */
+    font-size: 2em; /* Optimize font size for h2 */
+}
+
+/* Optimize font sizes for better typography and hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff; /* White color for headings */
+}
+h1 {
+    font-size: 2.5em; /* Large heading */
+}
+h2 {
+    font-size: 2em; /* Medium heading */
+}
+h3 {
+    font-size: 1.75em; /* Smaller heading */
+}
+h4 {
+    font-size: 1.5em; /* Smaller heading */
+}
+h5 {
+    font-size: 1.25em; /* Smaller heading */
+}
+h6 {
+    font-size: 1em; /* Smallest heading */
 }
 
 /* Custom layout classes */
