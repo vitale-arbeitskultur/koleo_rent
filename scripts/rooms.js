@@ -1,4 +1,4 @@
-import { data } from './data.js';
+import { data, markDataAsChanged } from './data.js';
 import { renderRoomList, clearRoomForm, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, initializeMaterializeSelects, showMessage } from './ui.js';
 import { MESSAGES, DEFAULT_TENANT_SELECT_VALUE } from './constants.js';
 import { calculateRent } from './calculation.js';

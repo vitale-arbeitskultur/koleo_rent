@@ -1,4 +1,4 @@
-import { data } from './data.js';
+import { data, markDataAsChanged } from './data.js';
 import { renderTenantList, populateTenantSelect, resultsDiv, addTenantRow, initializeMaterializeSelects, showMessage } from './ui.js';
 import { MESSAGES } from './constants.js';
 import { calculateRent } from './calculation.js';
