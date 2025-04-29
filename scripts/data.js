@@ -5,10 +5,15 @@ export let data = {
     tenants: [] // Structure: {id: number, name: string}
 };
 
+import { saveToSessionStorage } from './cookie.js';
+
 export let dataChanged = false;
 
 export function markDataAsChanged() {
     dataChanged = true;
+
+    // Save to session storage whenever data changes
+    saveToSessionStorage();
 }
 
 export function markDataAsSaved() {

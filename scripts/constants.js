@@ -12,7 +12,13 @@ export const MESSAGES = {
     FILE_IMPORT_ERROR: (message) => `Fehler beim Parsen der JSON-Datei: ${message}`,
     FILE_READ_ERROR: 'Fehler beim Lesen der Datei.',
     FILE_TYPE_ERROR: 'Bitte nur JSON-Dateien auswählen!',
-    NO_FILE_SELECTED: 'Keine Datei ausgewählt'
+    NO_FILE_SELECTED: 'Keine Datei ausgewählt',
+
+    // Add new cookie-related messages
+    SESSION_SAVE_SUCCESS: 'Daten erfolgreich in Session gespeichert.',
+    SESSION_LOAD_SUCCESS: 'Daten erfolgreich aus Session geladen.',
+    SESSION_LOAD_ERROR: 'Fehler beim Laden der Sessiondaten.',
+    SESSION_CLEAR_SUCCESS: 'Sessiondaten erfolgreich gelöscht.'
 };
 
 export const DEFAULT_TENANT_SELECT_VALUE = '-1';

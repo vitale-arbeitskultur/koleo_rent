@@ -453,6 +453,12 @@ export function renderResults(calculatedData) {
         Gesamtkosten Gemeinschaftsfläche: ${calculatedData.totalCommonCost.toFixed(2)} € (werden auf Mieter umgelegt)
     `;
 
+    // Update the prominent total sum display
+    const prominentTotalSum = document.getElementById('prominentTotalSum');
+    if (prominentTotalSum) {
+        prominentTotalSum.textContent = calculatedData.calculatedTotalRentSum.toFixed(2);
+    }
+
     checksumRentSpan.textContent = calculatedData.calculatedTotalRentSum.toFixed(2);
     resultsDiv.style.display = 'block'; // Show results
     noCalculationMessage.style.display = 'none'; // Hide message

@@ -77,6 +77,10 @@ export function importData(event) {
             populateTenantSelect(); // Repopulate tenant select dropdown
             initializeMaterializeSelects(); // Re-initialize Materialize select
             calculateRent(); // Recalculate and render results after import
+
+            // Save imported data to session storage
+            saveToSessionStorage();
+
             showMessage(MESSAGES.FILE_IMPORT_SUCCESS, 'info');
 
         } catch (error) {

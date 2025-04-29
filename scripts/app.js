@@ -1,9 +1,11 @@
-import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importDataBtn, initializeMaterializeSelects, showSaveWarningModal, exportBeforeCloseBtn, closeWithoutSavingBtn } from './ui.js'; // Import modal functions and buttons
+import { renderRoomList, renderTenantList, populateTenantSelect, totalColdRentInput, utilitiesInput, roomNameInput, roomAreaInput, roomTenantSelect, isCommonAreaCheckbox, importFileInput, importDataBtn, initializeMaterializeSelects, showSaveWarningModal, exportBeforeCloseBtn, closeWithoutSavingBtn, showMessage } from './ui.js'; // Import modal functions and buttons and showMessage
 import { addTenant } from './tenants.js';
 import { addRoom, saveRoom, cancelEdit } from './rooms.js';
 import { calculateRent } from './calculation.js';
 import { exportData, importData } from './io.js';
 import { dataChanged, markDataAsChanged, markDataAsSaved } from './data.js'; // Import dataChanged, markDataAsChanged, and markDataAsSaved
+import { loadFromSessionStorage, updateSessionStatusDisplay, clearSessionStorage } from './cookie.js'; // Import session storage functions
+import { MESSAGES } from './constants.js'; // Import MESSAGES
 
 // --- Event Listeners ---
 /**
@@ -11,9 +13,18 @@ import { dataChanged, markDataAsChanged, markDataAsSaved } from './data.js'; // 
  * Sets up initial rendering, attaches event listeners, and initializes Materialize components.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    renderRoomList(); // Initial empty list display
-    renderTenantList(); // Initial empty tenant list display
-    populateTenantSelect(); // Initial empty dropdown population
+    // Try to load data from session storage
+    const dataLoaded = loadFromSessionStorage();
+
+    if (!dataLoaded) {
+        // If no session data, initialize with empty data
+        renderRoomList(); // Initial empty list display
+        renderTenantList(); // Initial empty tenant list display
+        populateTenantSelect(); // Initial empty dropdown population
+    }
+
+    // Update session status display
+    updateSessionStatusDisplay();
 
     // Attach event listeners to buttons and inputs
     document.getElementById('addRoomBtn').addEventListener('click', addRoom);
@@ -21,6 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
     document.getElementById('addTenantBtn').addEventListener('click', addTenant);
     document.getElementById('exportDataBtn').addEventListener('click', exportData);
+
+    // Add event listener for clear session button
+    const clearSessionBtn = document.getElementById('clearSessionBtn');
+    if (clearSessionBtn) {
+        clearSessionBtn.addEventListener('click', () => {
+            clearSessionStorage();
+            showMessage(MESSAGES.SESSION_CLEAR_SUCCESS, 'info');
+        });
+    }
 
     // Event listeners for input changes to trigger recalculation
     totalColdRentInput.addEventListener('input', () => {

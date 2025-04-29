@@ -19,6 +19,7 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo"><i class="material-icons">business</i>CoWorking Mietenberechnung</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><span id="sessionStatusDisplay" class="session-status"></span></li>
                 <li><a href="#!" id="exportDataBtn" class="btn waves-effect waves-light"><i class="material-icons left">file_download</i>Daten exportieren</a></li>
                 <li>
                     <button class="btn waves-effect waves-light" id="importDataBtn"><i class="material-icons left">file_upload</i>Daten importieren</button>
@@ -40,6 +41,9 @@
                     <h2>Berechnungsergebnisse</h2>
                     <p id="noCalculationMessage" style="text-align: center; margin-top: 20px;">Bitte geben Sie die Gesamtkaltmiete und Nebenkosten ein und fügen Sie Räume und Mieter hinzu, um die Berechnung zu sehen.</p>
                     <div id="results" style="display: none;">
+                        <div id="totalSumDisplay" class="total-sum-display">
+                            <h3>Gesamtmiete: <span id="prominentTotalSum">0.00</span> €</h3>
+                        </div>
                         <div id="calculationSummary"></div>
                         <table class="striped highlight">
                             <thead>
@@ -181,5 +185,15 @@
             var instances = M.Dropdown.init(elems, { coverTrigger: false });
         });
     </script>
+    <footer class="page-footer darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <a href="#!" id="clearSessionBtn" class="btn-small waves-effect waves-light red"><i class="material-icons left">delete</i>Session löschen</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
